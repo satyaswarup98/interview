@@ -17,14 +17,13 @@ def process_query(query):
     if "category" in query or "feedback" in query:
         return "Please enter the feedback you want to classify."
 
-    elif "complaints last week" in query:
-        return "Feature coming soon: Fetch complaints based on date from dataset."
-
     elif "top customers" in query or "high-value customers" in query:
         data['TotalSpent'] = data['Quantity'] * data['UnitPrice']
         top_customers = data.groupby('CustomerID')['TotalSpent'].sum().sort_values(ascending=False).head(5)
-        return f"Top 5 High-Value Customers:
-{top_customers.to_string()}"
+        return "Top 5 High-Value Customers:\n" + top_customers.to_string()
+
+    elif "complaints last week" in query:
+        return "Feature coming soon: Fetch complaints based on date from dataset."
 
     elif "most complaints" in query or "which country" in query:
         return "Feature coming soon: Count complaints per country from dataset."
@@ -35,18 +34,13 @@ def process_query(query):
 # Streamlit UI
 st.title("Customer Feedback Chatbot")
 
-# st.info(
-#     "### Example Queries:
-# "
-#     "- What category does this feedback fall under?
-# "
-#     "- How many complaints were received last week?
-# "
-#     "- Who are the top 5 high-value customers?
-# "
-#     "- Which country has the most complaints?
-# "
-# )
+st.info(
+    "### Example Queries:\n"
+    "- What category does this feedback fall under?\n"
+    "- How many complaints were received last week?\n"
+    "- Who are the top 5 high-value customers?\n"
+    "- Which country has the most complaints?\n"
+)
 
 # User input for open-ended chatbot interaction
 user_query = st.text_input("Ask me a question:")
