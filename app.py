@@ -13,15 +13,12 @@ def classify_feedback(text):
 # Streamlit UI
 st.title("Customer Feedback Chatbot")
 
-st.info("### Example Queries:
-"
-        "- What category does this feedback fall under?
-"
-        "- How many complaints were received last week?
-"
-        "- Who are the top 5 high-value customers?
-"
-        "- Which country has the most complaints?")
+st.info("""### Example Queries:
+- What category does this feedback fall under?
+- How many complaints were received last week?
+- Who are the top 5 high-value customers?
+- Which country has the most complaints?
+""")
 
 feedback = st.text_area("Enter customer feedback:")
 if st.button("Classify Feedback"):
