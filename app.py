@@ -2,13 +2,15 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# Load model & data
-model = joblib.load("feedback_classifier.pkl")
-data = pd.read_csv("customer_segmentation.csv")
+# Load the trained model
+model_pipeline = joblib.load("feedback_classifier.pkl")
+
+# Load the customer segmentation data
+df_segmentation = pd.read_csv("customer_segmentation.csv")
 
 # Function to classify feedback
 def classify_feedback(text):
-    return model.predict([text])[0]
+    return model_pipeline.predict([text])[0]
 
 # Streamlit UI
 st.title("Customer Feedback Chatbot")
@@ -20,6 +22,7 @@ st.info("""### Example Queries:
 - Which country has the most complaints?
 """)
 
+# User input for feedback classification
 feedback = st.text_area("Enter customer feedback:")
 if st.button("Classify Feedback"):
     if feedback:
@@ -28,13 +31,9 @@ if st.button("Classify Feedback"):
     else:
         st.warning("Please enter feedback text.")
 
-if st.button("Show Complaints Last Week"):
-    st.write("Feature coming soon: Fetch complaints based on date from dataset.")
 
+# Query: Who are the top 5 high-value customers?
 if st.button("Top 5 High-Value Customers"):
-    data['TotalSpent'] = data['Quantity'] * data['UnitPrice']
-    top_customers = data.groupby('CustomerID')['TotalSpent'].sum().sort_values(ascending=False).head(5)
+    df_segmentation['TotalSpent'] = df_segmentation['Quantity'] * df_segmentation['UnitPrice']
+    top_customers = df_segmentation.groupby('CustomerID')['TotalSpent'].sum().sort_values(ascending=False).head(5)
     st.write(top_customers)
-
-if st.button("Country with Most Complaints"):
-    st.write("Feature coming soon: Count complaints per country from dataset.")
