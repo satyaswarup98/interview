@@ -17,7 +17,7 @@ def process_query(query):
     if "category" in query or "feedback" in query:
         return "Please enter the feedback you want to classify."
 
-    elif "top customers" in query or "high-value customers" in query:
+      elif "top customers" in query or "high-value customers" in query:
         data['TotalSpent'] = data['Quantity'] * data['UnitPrice']
         top_customers = data.groupby('CustomerID')['TotalSpent'].sum().sort_values(ascending=False).head(5)
         return f"Top 5 High-Value Customers:
