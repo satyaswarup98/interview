@@ -22,11 +22,6 @@ def process_query(query):
         top_customers = data.groupby('CustomerID')['TotalSpent'].sum().sort_values(ascending=False).head(5)
         return "Top 5 High-Value Customers:\n" + top_customers.to_string()
 
-    elif "complaints last week" in query:
-        return "Feature coming soon: Fetch complaints based on date from dataset."
-
-    elif "most complaints" in query or "which country" in query:
-        return "Feature coming soon: Count complaints per country from dataset."
 
     else:
         return "Sorry, I didn't understand the question. Try asking about feedback categories, complaints, or customer insights."
@@ -38,8 +33,6 @@ st.info(
     "### Example Queries:\n"
     "- What category does this feedback fall under?\n"
     "- How many complaints were received last week?\n"
-    "- Who are the top 5 high-value customers?\n"
-    "- Which country has the most complaints?\n"
 )
 
 # User input for open-ended chatbot interaction
